@@ -1493,6 +1493,8 @@ void AdsImpl::GetInternalsInfo(
     ads::InternalsInfoCallback callback) {
   InternalsInfo info_ = *info;
   info->enabled = IsInitialized();
+  info->catalog_id = bundle_->GetCatalogId();
+  info->catalog_last_updated = bundle_->GetLastUpdated();
   callback(std::move(info));
 }
 

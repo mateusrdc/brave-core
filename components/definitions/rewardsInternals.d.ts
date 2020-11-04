@@ -11,8 +11,10 @@ declare namespace RewardsInternals {
       bootStamp: number
     }
     adsInfo: {
-      locale: string
+      catalogId: string
+      catalogLastUpdated: string
       enabled: boolean
+      locale: string
     }
     contributions: ContributionInfo[]
     promotions: Promotion[]

@@ -13,8 +13,10 @@ const defaultState: RewardsInternals.State = {
     bootStamp: 0
   },
   adsInfo: {
-    locale: '',
-    enabled: false
+    catalogId: '',
+    catalogLastUpdated: '',
+    enabled: false,
+    locale: ''
   },
   contributions: [],
   promotions: [],

@@ -33,6 +33,12 @@ export class GeneralAdsInfo extends React.Component<Props, {}> {
         <div>
           {this.props.data.adsInfo.enabled.toString()}
         </div>
+        <div>
+          CatalogId: {this.props.data.adsInfo.catalogId}
+        </div>
+        <div>
+          CatalogId: {this.props.data.adsInfo.catalogLastUpdated}
+        </div>
       </>
     )
   }

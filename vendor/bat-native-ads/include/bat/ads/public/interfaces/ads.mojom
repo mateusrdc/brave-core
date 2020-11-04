@@ -11,8 +11,10 @@ enum BraveAdsEnvironment {
 };
 
 struct BraveAdsInternalsInfo {
-  string locale;
+  string catalog_id;
+  string catalog_last_updated;
   bool enabled;
+  string locale;
 };
 
 struct BraveAdsBuildChannel {

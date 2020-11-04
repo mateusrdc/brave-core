@@ -9,6 +9,7 @@
 #include <limits>
 #include <vector>
 
+#include "base/strings/stringprintf.h"
 #include "base/strings/string_split.h"
 #include "base/strings/string_util.h"
 #include "bat/ads/internal/ads_impl.h"
@@ -152,6 +153,17 @@ bool Bundle::IsOlderThanOneDay() const {
   }
 
   return false;
+}
+
+std::string Bundle::GetLastUpdated() const {
+  base::Time::Exploded exploded;
+  catalog_last_updated_.LocalExplode(&exploded);
+  return base::StringPrintf("%d-%02d-%02d %02d:%02d",
+      exploded.year,
+      exploded.month,
+      exploded.day_of_month,
+      exploded.hour,
+      exploded.minute);
 }
 
 bool Bundle::Exists() const {

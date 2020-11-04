@@ -32,6 +32,7 @@ class Bundle {
       const Catalog& catalog);
 
   std::string GetCatalogId() const;
+  std::string GetLastUpdated() const;
   uint64_t GetCatalogVersion() const;
   uint64_t GetCatalogPing() const;
 
