@@ -216,6 +216,7 @@ void AdsImpl::InitializeStep6(
 
   is_foreground_ = ads_client_->IsForeground();
 
+  ads_client_->SetIntegerPref(prefs::kEligibleAdsCount, -1);
   ads_client_->SetIntegerPref(prefs::kIdleThreshold, kIdleThresholdInSeconds);
 
   callback(SUCCESS);
@@ -809,6 +810,7 @@ void AdsImpl::OnServeAdNotificationFromCategories(
     const classification::CategoryList& categories,
     const CreativeAdNotificationList& ads) {
   const CreativeAdNotificationList eligible_ads = GetEligibleAds(ads);
+  ads_client_->SetIntegerPref(prefs::kEligibleAdsCount, eligible_ads.size());
   if (eligible_ads.empty()) {
     BLOG(1, "No eligible ads found in categories:");
     for (const auto& category : categories) {
@@ -1495,6 +1497,7 @@ void AdsImpl::GetInternalsInfo(
   info->enabled = IsInitialized();
   info->catalog_id = bundle_->GetCatalogId();
   info->catalog_last_updated = bundle_->GetLastUpdated();
+  info->eligible_ads_count = ads_client_->GetIntegerPref(prefs::kEligibleAdsCount);
   callback(std::move(info));
 }
 

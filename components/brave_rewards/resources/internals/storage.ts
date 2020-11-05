@@ -15,6 +15,7 @@ const defaultState: RewardsInternals.State = {
   adsInfo: {
     catalogId: '',
     catalogLastUpdated: '',
+    eligibleAdsCount: -1,
     enabled: false,
     locale: ''
   },

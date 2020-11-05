@@ -12,6 +12,9 @@ namespace prefs {
 
 extern const char kEnabled[];
 
+// Diagnostics
+extern const char kEligibleAdsCount[];
+
 extern const char kShouldAllowAdConversionTracking[];
 
 extern const char kAdsPerHour[];

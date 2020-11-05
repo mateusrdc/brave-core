@@ -12,6 +12,8 @@ namespace prefs {
 // Stores whether Brave ads is enabled or disabled
 const char kEnabled[] = "brave.brave_ads.enabled";
 
+const char kEligibleAdsCount[] = "brave.brave_ads.eligible_ads_count";
+
 // Stores whether Brave ads should allow ad conversion tracking
 const char kShouldAllowAdConversionTracking[] =
     "brave.brave_ads.should_allow_ad_conversion_tracking";

@@ -13,6 +13,7 @@ declare namespace RewardsInternals {
     adsInfo: {
       catalogId: string
       catalogLastUpdated: string
+      eligibleAdsCount: number
       enabled: boolean
       locale: string
     }

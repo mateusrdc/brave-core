@@ -28,16 +28,19 @@ export class GeneralAdsInfo extends React.Component<Props, {}> {
           />
         </ButtonWrapper>
         <div>
-          {this.props.data.adsInfo.locale}
+          Locale: {this.props.data.adsInfo.locale}
         </div>
         <div>
-          {this.props.data.adsInfo.enabled.toString()}
+          Ads enabled: {this.props.data.adsInfo.enabled.toString()}
         </div>
         <div>
           CatalogId: {this.props.data.adsInfo.catalogId}
         </div>
         <div>
           CatalogId: {this.props.data.adsInfo.catalogLastUpdated}
+        </div>
+        <div>
+          Eligible ads: {this.props.data.adsInfo.eligibleAdsCount}
         </div>
       </>
     )
