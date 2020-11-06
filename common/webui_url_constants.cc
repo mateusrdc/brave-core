@@ -9,7 +9,6 @@ const char kAdblockHost[] = "adblock";
 const char kAdblockJS[] = "brave_adblock.js";
 const char kIPFSHost[] = "ipfs";
 const char kWebcompatReporterHost[] = "webcompat";
-const char kAdsInternalsHost[] = "ads-internals";
 const char kRewardsPageHost[] = "rewards";
 const char kRewardsInternalsHost[] = "rewards-internals";
 const char kWelcomeHost[] = "welcome";

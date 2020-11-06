@@ -655,6 +655,11 @@ bool AdsImpl::ToggleFlagAd(
       client_->ToggleFlagAd(creative_instance_id, creative_set_id, flagged);
   if (flag_ad) {
     confirmations_->ConfirmAd(creative_instance_id, ConfirmationType::kFlagged);
+    std::string previous_state = ads_client_->GetStringPref(prefs::kFlaggedAds);
+    ads_client_->SetStringPref(prefs::kFlaggedAds,
+        base::StringPrintf("%s%s,",
+          previous_state.c_str(),
+          creative_instance_id.c_str()));
   }
 
   return flag_ad;
@@ -992,6 +997,9 @@ CreativeAdNotificationList AdsImpl::GetEligibleAds(
   const auto exclusion_rules = CreateAdNotificationExclusionRules();
 
   auto unseen_ads = GetUnseenAdsAndRoundRobinIfNeeded(ads);
+
+  // Diagnostics
+  std::string excluded_ads;
   for (const auto& ad : unseen_ads) {
     bool should_exclude = false;
 
@@ -1003,6 +1011,9 @@ CreativeAdNotificationList AdsImpl::GetEligibleAds(
       const std::string exclusion_reason = exclusion_rule->get_last_message();
       if (!exclusion_reason.empty()) {
         BLOG(2, exclusion_reason);
+        excluded_ads += base::StringPrintf("%s,%s\n",
+            ad.creative_instance_id.c_str(),
+            exclusion_reason.c_str());
       }
 
       should_exclude = true;
@@ -1014,6 +1025,7 @@ CreativeAdNotificationList AdsImpl::GetEligibleAds(
 
     eligible_ads.push_back(ad);
   }
+  ads_client_->SetStringPref(prefs::kLastFilteredAds, excluded_ads);
 
   return eligible_ads;
 }
@@ -1494,10 +1506,12 @@ void AdsImpl::GetInternalsInfo(
     InternalsInfoPtr info,
     ads::InternalsInfoCallback callback) {
   InternalsInfo info_ = *info;
-  info->enabled = IsInitialized();
   info->catalog_id = bundle_->GetCatalogId();
   info->catalog_last_updated = bundle_->GetLastUpdated();
+  info->enabled = IsInitialized();
   info->eligible_ads_count = ads_client_->GetIntegerPref(prefs::kEligibleAdsCount);
+  info->flagged_ads = ads_client_->GetStringPref(prefs::kFlaggedAds);
+  info->last_filtered_ads = ads_client_->GetStringPref(prefs::kLastFilteredAds);
   callback(std::move(info));
 }
 

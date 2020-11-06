@@ -15,6 +15,8 @@ declare namespace RewardsInternals {
       catalogLastUpdated: string
       eligibleAdsCount: number
       enabled: boolean
+      flaggedAds: string
+      lastFilteredAds: string
       locale: string
     }
     contributions: ContributionInfo[]

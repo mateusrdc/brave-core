@@ -160,6 +160,8 @@ void RewardsInternalsDOMHandler::OnGetAdsInternalsInfo(
   info_dict.SetString("catalogLastUpdated", info->catalog_last_updated);
   info_dict.SetInteger("eligibleAdsCount", info->eligible_ads_count);
   info_dict.SetBoolean("enabled", info->enabled);
+  info_dict.SetString("flaggedAds", info->flagged_ads);
+  info_dict.SetString("lastFilteredAds", info->last_filtered_ads);
   info_dict.SetString("locale", info->locale);
   web_ui()->CallJavascriptFunctionUnsafe(
       "brave_rewards_internals.onGetAdsInternalsInfo", info_dict);

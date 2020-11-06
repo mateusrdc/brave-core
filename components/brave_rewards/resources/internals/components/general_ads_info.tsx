@@ -42,6 +42,12 @@ export class GeneralAdsInfo extends React.Component<Props, {}> {
         <div>
           Eligible ads: {this.props.data.adsInfo.eligibleAdsCount}
         </div>
+        <div>
+          Flagged ads: {this.props.data.adsInfo.flaggedAds}
+        </div>
+        <div>
+          Last filtered ads: {this.props.data.adsInfo.lastFilteredAds}
+        </div>
       </>
     )
   }

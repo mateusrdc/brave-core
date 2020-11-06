@@ -8,5 +8,5 @@ import { combineReducers } from 'redux'
 import rewardsInternalsReducer from './rewards_internals_reducer'
 
 export default combineReducers<RewardsInternals.ApplicationState>({
-  rewardsInternalsData: rewardsInternalsReducer,
+  rewardsInternalsData: rewardsInternalsReducer
 })

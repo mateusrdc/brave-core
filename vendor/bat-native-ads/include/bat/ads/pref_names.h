@@ -14,6 +14,8 @@ extern const char kEnabled[];
 
 // Diagnostics
 extern const char kEligibleAdsCount[];
+extern const char kFlaggedAds[];
+extern const char kLastFilteredAds[];
 
 extern const char kShouldAllowAdConversionTracking[];
 

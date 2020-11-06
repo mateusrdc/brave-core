@@ -17,6 +17,8 @@ const defaultState: RewardsInternals.State = {
     catalogLastUpdated: '',
     eligibleAdsCount: -1,
     enabled: false,
+    flaggedAds: '',
+    lastFilteredAds: '',
     locale: ''
   },
   contributions: [],

@@ -115,7 +115,6 @@ WebUIFactoryFunction GetWebUIFactoryFunction(WebUI* web_ui,
       url.host_piece() == kRewardsPageHost ||
       url.host_piece() == kRewardsInternalsHost ||
       url.host_piece() == kTipHost ||
-      url.host_piece() == kAdsInternalsHost ||
 #endif
       url.host_piece() == kWelcomeHost ||
       url.host_piece() == chrome::kChromeUIWelcomeURL ||
@@ -131,8 +130,7 @@ WebUIFactoryFunction GetWebUIFactoryFunction(WebUI* web_ui,
 bool ShouldBlockRewardsWebUI(
       content::BrowserContext* browser_context, const GURL& url) {
   if (url.host_piece() != kRewardsPageHost &&
-      url.host_piece() != kRewardsInternalsHost &&
-      url.host_piece() != kAdsInternalsHost) {
+      url.host_piece() != kRewardsInternalsHost) {
     return false;
   }
   if (!base::FeatureList::IsEnabled(features::kBraveRewards)) {

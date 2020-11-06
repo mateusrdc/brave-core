@@ -217,13 +217,13 @@ bool PurchaseIntentClassifier::FromJson(
   }
 
   if (!incoming_segment_keywords->is_dict()) {
-    LOG(1, "Failed to load from JSON, segment keywords not of type dict");
+    BLOG(1, "Failed to load from JSON, segment keywords not of type dict");
     return false;
   }
 
   base::DictionaryValue* dict2;
   if (!incoming_segment_keywords->GetAsDictionary(&dict2)) {
-    LOG(1, "Failed to load from JSON, get segment keywords as dict");
+    BLOG(1, "Failed to load from JSON, get segment keywords as dict");
     return false;
   }
 
@@ -243,18 +243,18 @@ bool PurchaseIntentClassifier::FromJson(
   base::Value* incoming_funnel_keywords =
       root->FindDictPath("funnel_keywords");
   if (!incoming_funnel_keywords) {
-    LOG(1, "Failed to load from JSON, funnel keywords missing");
+    BLOG(1, "Failed to load from JSON, funnel keywords missing");
     return false;
   }
 
   if (!incoming_funnel_keywords->is_dict()) {
-    LOG(1, "Failed to load from JSON, funnel keywords not of type dict");
+    BLOG(1, "Failed to load from JSON, funnel keywords not of type dict");
     return false;
   }
 
   base::DictionaryValue* dict;
   if (!incoming_funnel_keywords->GetAsDictionary(&dict)) {
-    LOG(1, "Failed to load from JSON, get funnel keywords as dict");
+    BLOG(1, "Failed to load from JSON, get funnel keywords as dict");
     return false;
   }
 
