@@ -104,6 +104,7 @@ void CreativeAdNotifications::GetForCategories(
           "cam.priority, "
           "ca.conversion, "
           "ca.per_day, "
+          "ca.per_month, "
           "ca.total_max, "
           "c.category, "
           "gt.geo_target, "
@@ -152,6 +153,7 @@ void CreativeAdNotifications::GetForCategories(
     DBCommand::RecordBindingType::INT_TYPE,     // priority
     DBCommand::RecordBindingType::BOOL_TYPE,    // conversion
     DBCommand::RecordBindingType::INT_TYPE,     // per_day
+    DBCommand::RecordBindingType::INT_TYPE,     // per_month
     DBCommand::RecordBindingType::INT_TYPE,     // total_max
     DBCommand::RecordBindingType::STRING_TYPE,  // category
     DBCommand::RecordBindingType::STRING_TYPE,  // geo_target
@@ -186,6 +188,7 @@ void CreativeAdNotifications::GetAll(
           "cam.priority, "
           "ca.conversion, "
           "ca.per_day, "
+          "ca.per_month, "
           "ca.total_max, "
           "c.category, "
           "gt.geo_target, "
@@ -226,6 +229,7 @@ void CreativeAdNotifications::GetAll(
     DBCommand::RecordBindingType::INT_TYPE,     // priority
     DBCommand::RecordBindingType::BOOL_TYPE,    // conversion
     DBCommand::RecordBindingType::INT_TYPE,     // per_day
+    DBCommand::RecordBindingType::INT_TYPE,     // per_month
     DBCommand::RecordBindingType::INT_TYPE,     // total_max
     DBCommand::RecordBindingType::STRING_TYPE,  // category
     DBCommand::RecordBindingType::STRING_TYPE,  // geo_target
@@ -405,18 +409,19 @@ CreativeAdNotificationInfo CreativeAdNotifications::GetFromRecord(
   creative_ad_notification.priority = ColumnInt(record, 7);
   creative_ad_notification.conversion = ColumnBool(record, 8);
   creative_ad_notification.per_day = ColumnInt(record, 9);
-  creative_ad_notification.total_max = ColumnInt(record, 10);
-  creative_ad_notification.category = ColumnString(record, 11);
-  creative_ad_notification.geo_targets.push_back(ColumnString(record, 12));
-  creative_ad_notification.target_url = ColumnString(record, 13);
-  creative_ad_notification.title = ColumnString(record, 14);
-  creative_ad_notification.body = ColumnString(record, 15);
-  creative_ad_notification.ptr = ColumnDouble(record, 16);
+  creative_ad_notification.per_month = ColumnInt(record, 10);
+  creative_ad_notification.total_max = ColumnInt(record, 11);
+  creative_ad_notification.category = ColumnString(record, 12);
+  creative_ad_notification.geo_targets.push_back(ColumnString(record, 13));
+  creative_ad_notification.target_url = ColumnString(record, 14);
+  creative_ad_notification.title = ColumnString(record, 15);
+  creative_ad_notification.body = ColumnString(record, 16);
+  creative_ad_notification.ptr = ColumnDouble(record, 17);
 
   CreativeDaypartInfo daypart;
-  daypart.dow = ColumnString(record, 17);
-  daypart.start_minute = ColumnInt(record, 18);
-  daypart.end_minute = ColumnInt(record, 19);
+  daypart.dow = ColumnString(record, 18);
+  daypart.start_minute = ColumnInt(record, 19);
+  daypart.end_minute = ColumnInt(record, 20);
   creative_ad_notification.dayparts.push_back(daypart);
 
   return creative_ad_notification;
@@ -438,6 +443,7 @@ void CreativeAdNotifications::CreateTableV1(
           "priority INTEGER NOT NULL DEFAULT 0, "
           "conversion INTEGER NOT NULL DEFAULT 0, "
           "per_day INTEGER NOT NULL DEFAULT 0, "
+          "per_month INTEGER NOT NULL DEFAULT 0, "
           "total_max INTEGER NOT NULL DEFAULT 0, "
           "target_url TEXT NOT NULL, "
           "title TEXT NOT NULL, "

@@ -156,6 +156,7 @@ BundleState Bundle::FromCatalog(
         info.ptr = campaign.ptr;
         info.conversion = creative_set.conversions.size() != 0 ? true : false;
         info.per_day = creative_set.per_day;
+        info.per_month = creative_set.per_month;
         info.total_max = creative_set.total_max;
         info.dayparts = creative_dayparts;
         info.geo_targets = geo_targets;
@@ -238,6 +239,7 @@ BundleState Bundle::FromCatalog(
         info.ptr = campaign.ptr;
         info.conversion = creative_set.conversions.size() != 0 ? true : false;
         info.per_day = creative_set.per_day;
+        info.per_month = creative_set.per_month;
         info.total_max = creative_set.total_max;
         info.dayparts = creative_dayparts;
         info.geo_targets = geo_targets;

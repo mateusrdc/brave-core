@@ -25,6 +25,7 @@ struct CatalogCreativeSetInfo {
 
   std::string creative_set_id;
   unsigned int per_day = 0;
+  unsigned int per_month = 0;
   unsigned int total_max = 0;
   CatalogSegmentList segments;
   CatalogOsList oses;

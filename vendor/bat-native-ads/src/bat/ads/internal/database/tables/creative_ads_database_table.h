@@ -52,11 +52,11 @@ class CreativeAds : public Table {
   void MigrateToV3(
       DBTransaction* transaction);
 
-  void CreateTableV6(
+  void CreateTableV7(
       DBTransaction* transaction);
-  void CreateIndexV6(
+  void CreateIndexV7(
       DBTransaction* transaction);
-  void MigrateToV6(
+  void MigrateToV7(
       DBTransaction* transaction);
 };
 

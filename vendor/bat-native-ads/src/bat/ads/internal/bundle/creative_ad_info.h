@@ -32,6 +32,7 @@ struct CreativeAdInfo {
   double ptr = 0.0;
   bool conversion = false;
   unsigned int per_day = 0;
+  unsigned int per_month = 0;
   unsigned int total_max = 0;
   std::string category;
   std::vector<std::string> geo_targets;

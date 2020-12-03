@@ -97,6 +97,8 @@ Result CatalogState::FromJson(
 
       creative_set_info.per_day = creative_set["perDay"].GetUint();
 
+      creative_set_info.per_month = creative_set["perMonth"].GetUint();
+
       creative_set_info.total_max = creative_set["totalMax"].GetUint();
 
       // Segments
