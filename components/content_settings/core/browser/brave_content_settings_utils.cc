@@ -7,7 +7,9 @@
 
 #include <algorithm>
 
+#include "base/notreached.h"
 #include "base/optional.h"
+#include "brave/components/brave_shields/common/brave_shield_constants.h"
 #include "url/gurl.h"
 
 namespace {
@@ -59,6 +61,53 @@ namespace content_settings {
 
 const std::vector<ContentSettingsType>& GetShieldsContentSettingsTypes() {
   return kShieldsContentSettingsTypes;
+}
+
+std::string GetShieldsContentTypeName(const ContentSettingsType& content_type) {
+  switch (content_type) {
+    case ContentSettingsType::BRAVE_ADS:
+      return brave_shields::kAds;
+      break;
+    case ContentSettingsType::BRAVE_COSMETIC_FILTERING:
+      return brave_shields::kCosmeticFiltering;
+      break;
+    case ContentSettingsType::BRAVE_TRACKERS:
+      return brave_shields::kTrackers;
+      break;
+    case ContentSettingsType::BRAVE_HTTP_UPGRADABLE_RESOURCES:
+      return brave_shields::kHTTPUpgradableResources;
+      break;
+    case ContentSettingsType::BRAVE_JAVASCRIPT:
+      return brave_shields::kJavaScript;
+      break;
+    case ContentSettingsType::BRAVE_FINGERPRINTING_V2:
+      return brave_shields::kFingerprintingV2;
+      break;
+    case ContentSettingsType::BRAVE_SHIELDS:
+      return brave_shields::kBraveShields;
+      break;
+    case ContentSettingsType::BRAVE_REFERRERS:
+      return brave_shields::kReferrers;
+      break;
+    case ContentSettingsType::BRAVE_COOKIES:
+      return brave_shields::kCookies;
+      break;
+    case ContentSettingsType::BRAVE_FACEBOOK_EMBEDS:
+      return brave_shields::kFacebookEmbeds;
+      break;
+    case ContentSettingsType::BRAVE_TWITTER_EMBEDS:
+      return brave_shields::kTwitterEmbeds;
+      break;
+    case ContentSettingsType::BRAVE_LINKEDIN_EMBEDS   :
+      return brave_shields::kLinkedInEmbeds;
+      break;
+    default:
+      NOTREACHED();
+      return std::string();
+  }
+
+  NOTREACHED();
+  return std::string();
 }
 
 bool IsShieldsContentSettingsType(

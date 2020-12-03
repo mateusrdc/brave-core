@@ -16,6 +16,8 @@ namespace content_settings {
 
 const std::vector<ContentSettingsType>& GetShieldsContentSettingsTypes();
 
+std::string GetShieldsContentTypeName(const ContentSettingsType& content_type);
+
 bool IsShieldsContentSettingsType(const ContentSettingsType& content_type);
 
 base::Optional<ContentSettingsPattern> ConvertPatternToWildcardSchemeAndPort(
