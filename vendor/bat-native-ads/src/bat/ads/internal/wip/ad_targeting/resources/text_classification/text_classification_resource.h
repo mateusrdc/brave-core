@@ -17,7 +17,7 @@ namespace ads {
 namespace ad_targeting {
 namespace resource {
 
-class TextClassification {
+class TextClassification : public Resource<usermodel::UserModel> {
  public:
   TextClassification();
 
@@ -31,7 +31,7 @@ class TextClassification {
   void LoadForId(
       const std::string& locale);
 
-  usermodel::UserModel* Get();
+  usermodel::UserModel* get() const;
 
  private:
   std::unique_ptr<usermodel::UserModel> user_model_;

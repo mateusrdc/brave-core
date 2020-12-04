@@ -38,24 +38,33 @@ std::string GetTopSegmentFromPageProbabilities(
 }  // namespace
 
 TextClassification::TextClassification(
-    usermodel::UserModel* user_model)
-    : user_model_(user_model) {
-  DCHECK(user_model_);
+    const resource::TextClassification& text_classification_resource)
+    : text_classification_resource_(text_classification_resource) {
 }
 
 TextClassification::~TextClassification() = default;
 
 void TextClassification::Process(
     const std::string& text) {
+  if (!resource_.IsInitialized()) {
+    BLOG(1, "Failed to process purchase intent signal for visited URL due to "
+        "uninitialized purchase intent resource");
+
+    return;
+  }
+
+  BLOG(0, "FOOBAR.3: " << user_model_);
   if (!user_model_->IsInitialized()) {
     BLOG(1, "Failed to process text classification as user model "
         "not initialized");
     return;
   }
+  BLOG(0, "FOOBAR.4");
 
   const TextClassificationProbabilitiesMap probabilities =
       user_model_->ClassifyPage(text);
 
+  BLOG(0, "FOOBAR.5");
   if (probabilities.empty()) {
     BLOG(1, "Text not classified as not enough content");
     return;

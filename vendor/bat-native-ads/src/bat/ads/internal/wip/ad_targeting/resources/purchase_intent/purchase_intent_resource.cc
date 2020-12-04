@@ -66,18 +66,15 @@ void PurchaseIntent::LoadForId(
   }
 }
 
-PurchaseIntentInfo PurchaseIntent::Get() const {
-  return purchase_intent_;
+PurchaseIntentInfo PurchaseIntent::get() const {
+  return purchase_intent_resource_;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
 
 bool PurchaseIntent::FromJson(
     const std::string& json) {
-  version_ = 0;
-  signal_level_ = 0;
-  classification_threshold_ = 0;
-  signal_decay_time_window_in_seconds_ = 0;
+  PurchaseIntentInfo purchase_intent;
 
   base::Optional<base::Value> root = base::JSONReader::Read(json);
   if (!root) {
@@ -91,7 +88,7 @@ bool PurchaseIntent::FromJson(
       return false;
     }
 
-    version_ = *version;
+    purchase_intent.version = *version;
   }
 
   // Parsing field: "parameters"
@@ -103,17 +100,17 @@ bool PurchaseIntent::FromJson(
 
   if (base::Optional<int> signal_level =
       parameters->FindIntPath("signal_level")) {
-    signal_level_ = *signal_level;
+    purchase_intent.signal_level = *signal_level;
   }
 
   if (base::Optional<int> classification_threshold =
       parameters->FindIntPath("classification_threshold")) {
-    classification_threshold_ = *classification_threshold;
+    purchase_intent.classification_threshold = *classification_threshold;
   }
 
   if (base::Optional<int> signal_decay_time_window_in_seconds =
       parameters->FindIntPath("signal_decay_time_window_in_seconds")) {
-    signal_decay_time_window_in_seconds_ =
+    purchase_intent.signal_decay_time_window_in_seconds =
         *signal_decay_time_window_in_seconds;
   }
 
@@ -137,7 +134,7 @@ bool PurchaseIntent::FromJson(
 
   std::vector<std::string> segments;
   for (auto& segment : *list3) {
-    segments.push_back(segment.GetString());
+    purchase_intent.segments.push_back(segment.GetString());
   }
 
   // Parsing field: "segment_keywords"
@@ -159,7 +156,6 @@ bool PurchaseIntent::FromJson(
     return false;
   }
 
-  segment_keywords_.clear();
   for (base::DictionaryValue::Iterator it(*dict2); !it.IsAtEnd();
       it.Advance()) {
     SegmentKeywordInfo info;
@@ -168,7 +164,7 @@ bool PurchaseIntent::FromJson(
       info.segments.push_back(segments.at(segment_ix.GetInt()));
     }
 
-    segment_keywords_.push_back(info);
+    purchase_intent.segment_keywords.push_back(info);
   }
 
   // Parsing field: "funnel_keywords"
@@ -190,9 +186,7 @@ bool PurchaseIntent::FromJson(
     return false;
   }
 
-  funnel_keywords_.clear();
-  for (base::DictionaryValue::Iterator it(*dict); !it.IsAtEnd();
-      it.Advance()) {
+  for (base::DictionaryValue::Iterator it(*dict); !it.IsAtEnd(); it.Advance()) {
     FunnelKeywordInfo info;
     info.keywords = it.key();
     info.weight = it.value().GetInt();
@@ -218,8 +212,6 @@ bool PurchaseIntent::FromJson(
   }
 
   // For each set of sites and segments
-  sites_.clear();
-
   for (auto& set : *list1) {
     if (!set.is_dict()) {
       BLOG(1, "Failed to load from JSON, site set not of type dict");
@@ -252,9 +244,11 @@ bool PurchaseIntent::FromJson(
       info.segments = site_segments;
       info.url_netloc = site.GetString();
       info.weight = 1;
-      sites_.push_back(info);
+      purchase_intent.sites.push_back(info);
     }
   }
+
+  purchase_intent_resource_ = purchase_intent_resource;
 
   BLOG(1, "Parsed purchase intent user model version " << version_
       << " with a signal level of " << signal_level_ << ", classification "

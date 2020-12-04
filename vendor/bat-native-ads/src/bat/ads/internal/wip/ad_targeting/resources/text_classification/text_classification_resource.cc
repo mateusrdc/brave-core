@@ -17,7 +17,9 @@ namespace ads {
 namespace ad_targeting {
 namespace resource {
 
-TextClassification::TextClassification() = default;
+TextClassification::TextClassification() {
+  user_model_.reset(usermodel::UserModel::CreateInstance());
+}
 
 TextClassification::~TextClassification() = default;
 
@@ -31,7 +33,7 @@ void TextClassification::LoadForLocale(
 
   const auto iter = kTextClassificationLanguageCodes.find(language_code);
   if (iter == kTextClassificationLanguageCodes.end()) {
-    BLOG(1, locale << " locale does not support page classification");
+    BLOG(1, locale << " locale does not support text classification");
     user_model_.reset(usermodel::UserModel::CreateInstance());
     return;
   }
@@ -63,7 +65,7 @@ void TextClassification::LoadForId(
   });
 }
 
-usermodel::UserModel* TextClassification::Get() {
+usermodel::UserModel* TextClassification::get() const {
   return user_model_.get();
 }
 

@@ -29,12 +29,12 @@ class PurchaseIntent {
   void LoadForId(
       const std::string& locale);
 
-  PurchaseIntentInfo Get() const;
+  PurchaseIntentInfo get() const;
 
  private:
   bool is_initialized_ = false;
 
-  PurchaseIntentInfo purchase_intent_;
+  PurchaseIntentInfo purchase_intent_resource_;
 
   bool FromJson(
       const std::string& json);

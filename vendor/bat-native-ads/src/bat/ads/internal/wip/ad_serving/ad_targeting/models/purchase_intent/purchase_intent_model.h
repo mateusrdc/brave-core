@@ -3,8 +3,8 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-#ifndef BAT_ADS_INTERNAL_WIP_AD_SERVING_AD_TARGETING_MODELS_PURCHASE_INTENT_CLASSIFICATION_MODEL_H_  // NOLINT
-#define BAT_ADS_INTERNAL_WIP_AD_SERVING_AD_TARGETING_MODELS_PURCHASE_INTENT_CLASSIFICATION_MODEL_H_  // NOLINT
+#ifndef BAT_ADS_INTERNAL_WIP_AD_SERVING_AD_TARGETING_MODELS_PURCHASE_INTENT_MODEL_H_  // NOLINT
+#define BAT_ADS_INTERNAL_WIP_AD_SERVING_AD_TARGETING_MODELS_PURCHASE_INTENT_MODEL_H_  // NOLINT
 
 #include "bat/ads/internal/wip/ad_serving/ad_targeting/model.h"
 
@@ -18,14 +18,18 @@ namespace model {
 class PurchaseIntent : public Model {
  public:
   PurchaseIntent();
+      const resource::PurchaseIntent& purchase_intent_resource);
 
   ~PurchaseIntent() override;
 
   SegmentList GetSegments() const override;
+
+ private:
+  resource::PurchaseIntent purchase_intent_resource;
 };
 
 }  // namespace model
 }  // namespace ad_targeting
 }  // namespace ads
 
-#endif  // BAT_ADS_INTERNAL_WIP_AD_SERVING_AD_TARGETING_MODELS_PURCHASE_INTENT_CLASSIFICATION_MODEL_H_  // NOLINT
+#endif  // BAT_ADS_INTERNAL_WIP_AD_SERVING_AD_TARGETING_MODELS_PURCHASE_INTENT_MODEL_H_  // NOLINT

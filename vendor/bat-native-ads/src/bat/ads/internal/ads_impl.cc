@@ -43,6 +43,7 @@
 #include "bat/ads/internal/privacy/unblinded_tokens/unblinded_tokens.h"
 #include "bat/ads/internal/tab_manager/tab_info.h"
 #include "bat/ads/internal/tab_manager/tab_manager.h"
+#include "bat/ads/internal/url_util.h"
 #include "bat/ads/internal/user_activity/user_activity.h"
 #include "bat/ads/internal/wip/ad_targeting/processors/text_classification_processor.h"
 #include "bat/ads/internal/wip/ad_targeting/resources/text_classification/text_classification_resource.h"
@@ -143,6 +144,11 @@ void AdsImpl::OnPageLoaded(
     return;
   }
 
+  if (!DoesUrlHaveSchemeHTTPOrHTTPS(url)) {
+    BLOG(1, "Visited URL is not supported");
+    return;
+  }
+
   ad_transfer_->MaybeTransferAd(tab_id, original_url);
 
   conversions_->MaybeConvert(url);
@@ -155,13 +161,18 @@ void AdsImpl::OnPageLoaded(
     last_visible_tab_url = last_visible_tab->url;
   }
 
-  purchase_intent_classifier_->MaybeExtractIntentSignal(url,
-      last_visible_tab_url);
+  if (!SameDomainOrHost(url, last_visible_tab_url)) {
+    purchase_intent_classifier_->MaybeExtractIntentSignal(url,
+        last_visible_tab_url);
+  }
 
-
-  const std::string stripped_text =
-      ad_targeting::contextual::StripHtmlTagsAndNonAlphaCharacters(content);
-  text_classification_processor_->Process(stripped_text);
+  if (SearchProviders::IsSearchEngine(url)) {
+    BLOG(1, "Search engine pages are not supported for text classification");
+  } else {
+    const std::string stripped_text =
+        ad_targeting::contextual::StripHtmlTagsAndNonAlphaCharacters(content);
+    text_classification_processor_->Process(stripped_text);
+  }
 }
 
 void AdsImpl::OnIdle() {
@@ -381,7 +392,7 @@ void AdsImpl::set(
       std::make_unique<ad_targeting::resource::TextClassification>();
   text_classification_processor_ =
       std::make_unique<ad_targeting::processor::TextClassification>(
-          text_classification_resource_->Get());
+          text_classification_resource_);
 
   purchase_intent_classifier_ =
       std::make_unique<ad_targeting::behavioral::PurchaseIntentClassifier>();

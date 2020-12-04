@@ -3,20 +3,19 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-#include "bat/ads/internal/wip/ad_serving/ad_targeting/models/purchase_intent_model.h"
+#include "bat/ads/internal/wip/ad_targeting/resources/purchase_intent/purchase_intent_info.h"
 
 namespace ads {
 namespace ad_targeting {
-namespace model {
+namespace resource {
 
-PurchaseIntent::PurchaseIntent() = default;
+PurchaseIntentInfo::PurchaseIntentInfo() = default;
 
-PurchaseIntent::~PurchaseIntent() = default;
+PurchaseIntentInfo::PurchaseIntentInfo(
+    const PurchaseIntentInfo& info) = default;
 
-SegmentList PurchaseIntent::GetSegments() const {
-  return {};
-}
+PurchaseIntentInfo::~PurchaseIntentInfo() = default;
 
-}  // namespace model
+}  // namespace resource
 }  // namespace ad_targeting
 }  // namespace ads

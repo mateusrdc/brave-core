@@ -3,19 +3,25 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-#include "bat/ads/internal/wip/ad_targeting/resources/purchase_intent/purchase_intent_resource_info.h"
+#ifndef BAT_ADS_INTERNAL_WIP_AD_TARGETING_RESOURCES_RESOURCE_H_
+#define BAT_ADS_INTERNAL_WIP_AD_TARGETING_RESOURCES_RESOURCE_H_
 
 namespace ads {
 namespace ad_targeting {
 namespace resource {
 
-PurchaseIntentInfo::PurchaseIntentInfo() = default;
+template <class T>
+class Resource {
+ public:
+  virtual ~Resource() = default;
 
-PurchaseIntentInfo::PurchaseIntentInfo(
-    const PurchaseIntentInfo& info) = default;
+  virtual bool IsInitialized() const;
 
-PurchaseIntentInfo::~PurchaseIntentInfo() = default;
+  virtual T get() const;
+};
 
 }  // namespace resource
 }  // namespace ad_targeting
 }  // namespace ads
+
+#endif  // BAT_ADS_INTERNAL_WIP_AD_TARGETING_RESOURCES_RESOURCE_H_

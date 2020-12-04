@@ -17,6 +17,11 @@ class UserModel;
 
 namespace ads {
 namespace ad_targeting {
+
+namespace resource {
+class TextClassification;
+}  // namespace resource
+
 namespace processor {
 
 using TextClassificationProbabilitiesMap = std::map<std::string, double>;
@@ -24,7 +29,7 @@ using TextClassificationProbabilitiesMap = std::map<std::string, double>;
 class TextClassification : public Processor<std::string> {
  public:
   TextClassification(
-      usermodel::UserModel* user_model);
+      const resource::TextClassification& text_classification_resource);
 
   ~TextClassification() override;
 
@@ -32,7 +37,7 @@ class TextClassification : public Processor<std::string> {
       const std::string& text) override;
 
  private:
-  usermodel::UserModel* user_model_;  // NOT OWNED
+  resource::TextClassification text_classification_resource_;
 };
 
 }  // namespace processor
