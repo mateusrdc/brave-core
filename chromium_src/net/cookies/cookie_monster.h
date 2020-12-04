@@ -6,13 +6,13 @@
 #ifndef BRAVE_CHROMIUM_SRC_NET_COOKIES_COOKIE_MONSTER_H_
 #define BRAVE_CHROMIUM_SRC_NET_COOKIES_COOKIE_MONSTER_H_
 
-#define CookieMonster SimpleCookieMonster
+#define CookieMonster ChromiumCookieMonster
 #include "../../../../../net/cookies/cookie_monster.h"
 #undef CookieMonster
 
 namespace net {
 
-class NET_EXPORT CookieMonster : public SimpleCookieMonster {
+class NET_EXPORT CookieMonster : public ChromiumCookieMonster {
  public:
   // These constructors and destructors must be kept in sync with those in
   // Chromium's CookieMonster.
@@ -46,9 +46,9 @@ class NET_EXPORT CookieMonster : public SimpleCookieMonster {
 
  private:
   NetLogWithSource net_log_;
-  std::map<std::string, std::unique_ptr<SimpleCookieMonster>>
+  std::map<std::string, std::unique_ptr<ChromiumCookieMonster>>
       ephemeral_cookie_stores_;
-  SimpleCookieMonster* GetOrCreateEphemeralCookieStoreForTopFrameURL(
+  ChromiumCookieMonster* GetOrCreateEphemeralCookieStoreForTopFrameURL(
       const GURL& top_frame_url);
 };
 

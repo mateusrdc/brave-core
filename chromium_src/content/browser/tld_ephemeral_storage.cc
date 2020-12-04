@@ -7,14 +7,6 @@
 
 #include <map>
 #include "base/no_destructor.h"
-#include "content/browser/dom_storage/dom_storage_context_wrapper.h"
-#include "content/browser/dom_storage/session_storage_namespace_impl.h"
-#include "content/browser/renderer_host/render_view_host_delegate.h"
-#include "content/browser/storage_partition_impl.h"
-#include "content/public/browser/render_view_host.h"
-#include "content/public/browser/session_storage_namespace.h"
-#include "content/public/browser/storage_partition.h"
-#include "content/public/browser/web_contents.h"
 #include "services/network/public/mojom/cookie_manager.mojom.h"
 
 namespace content {
@@ -54,6 +46,7 @@ TLDEphemeralStorage* TLDEphemeralStorage::Get(BrowserContext* browser_context,
                                               std::string storage_domain) {
   TLDEphemeralStorageKey key = std::make_pair(browser_context, storage_domain);
   auto it = active_tld_storage_areas().find(key);
+  DCHECK(it == active_tld_storage_areas().end() || it->second.get());
   return it != active_tld_storage_areas().end() ? it->second.get() : nullptr;
 }
 
