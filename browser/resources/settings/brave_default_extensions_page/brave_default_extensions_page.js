@@ -21,6 +21,7 @@ Polymer({
     torEnabled_: Boolean,
     disableTorOption_: Boolean,
     ipfsEnabled_: Boolean,
+    showChangeIPFSGatewayDialog_: Boolean,
   },
 
   /** @private {?settings.BraveDefaultExtensionsBrowserProxy} */
@@ -112,6 +113,14 @@ Polymer({
 
   shouldShowRestartForGoogleLogin_: function(value) {
     return this.browserProxy_.wasSignInEnabledAtStartup() != value;
+  },
+
+  onChangeIPFSGatewayDialogTapped_: function() {
+    this.showChangeIPFSGatewayDialog_ = true;
+  },
+
+  onChangeIPFSGatewayDialogClosed_: function() {
+    this.showChangeIPFSGatewayDialog_ = false;
   },
 
 });

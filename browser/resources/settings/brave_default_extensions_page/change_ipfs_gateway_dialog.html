@@ -1,0 +1,18 @@
+<style include="settings-shared">
+</style>
+<cr-dialog show-close-button show-on-attach>
+  <div slot="title">change change</div>
+  <div slot="body">
+    <cr-input id="url" label="LLLLLLLL"
+      placeholder="https://dweb.link"
+      value="{{url_}}" on-input="validate_"
+      error-message="error" spellcheck="false"
+      autofocus>
+    </cr-input>
+  </div>
+  <div slot="button-container">
+    <cr-button class="action-button" on-click="handleSubmit_">
+    Submit
+    </cr-button>
+  </div>
+</cr-dialog>
